@@ -14,6 +14,8 @@ INNER JOIN users
     ON bookings.user_id = users.id;
 
 
+
+
 LEFT JOIN 
 
 SELECT
@@ -26,6 +28,10 @@ FROM
     properties
 LEFT JOIN reviews
     ON properties.id = reviews.property_id;
+
+
+
+
 
 
 FULL OUTER JOIN
