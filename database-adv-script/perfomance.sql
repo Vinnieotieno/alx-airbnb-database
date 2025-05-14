@@ -1,5 +1,4 @@
--- 1. Initial Query (complex join)
--- This query fetches booking details with user, property, and payment information
+-- 1. Initial Complex Query with Filtering Using WHERE and AND
 
 EXPLAIN ANALYZE
 SELECT 
@@ -14,10 +13,12 @@ FROM
     bookings b
 JOIN users u ON b.user_id = u.id
 JOIN properties p ON b.property_id = p.id
-LEFT JOIN payments pay ON b.id = pay.booking_id;
+LEFT JOIN payments pay ON b.id = pay.booking_id
+WHERE 
+    pay.amount > 100 
+    AND p.location = 'Nairobi';
 
--- 2. Optimized Version (with indexing and leaner SELECT)
--- Ensure indexes exist on bookings.user_id, bookings.property_id, payments.booking_id
+-- 2. Optimized Version (leaner select and still filtered)
 
 EXPLAIN ANALYZE
 SELECT 
@@ -30,4 +31,7 @@ FROM
     bookings b
 JOIN users u ON b.user_id = u.id
 JOIN properties p ON b.property_id = p.id
-LEFT JOIN payments pay ON b.id = pay.booking_id;
+LEFT JOIN payments pay ON b.id = pay.booking_id
+WHERE 
+    pay.amount > 100 
+    AND p.location = 'Nairobi';
